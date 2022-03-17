@@ -2,14 +2,17 @@ package com.desafiojava.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,11 +37,12 @@ public class Aluno implements Serializable{
 	
 	public String Nome;
 	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	public LocalDateTime DataDeNascimento;
 	
-	@OneToOne(mappedBy = "id.aluno")	
-	private Turma turma;
+	@OneToMany(mappedBy = "aluno")	
+	private List<Turma> turmas;
 	
 	public Aluno() {}
 

@@ -1,9 +1,7 @@
 package com.desafiojava.entities;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +24,14 @@ public class Turma implements Serializable{
 	public int Id;
 	public String Nome;
 	public int Capacidade;
+	
+	@OneToOne
+	@JoinColumn(name="aluno.id")
+	private Aluno aluno;
+	
+	@OneToOne
+	@JoinColumn(name="escola.id")
+	private Escola escola;
 	
 	public Turma() {}
 

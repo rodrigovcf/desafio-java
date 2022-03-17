@@ -31,7 +31,7 @@ public class Escola implements Serializable{
 	@JoinColumn(name = "fk_endereco")
 	public Endereco Endereco;
 
-	@OneToMany
+	@OneToMany(mappedBy = "aluno")
 	@JoinColumn(name = "fk_turma")
 	private List<Turma> turmas;
 	
@@ -42,6 +42,8 @@ public class Escola implements Serializable{
 		Nome = nome;
 		Endereco = endereco;
 	}	
+
+	
 		
 
 }
