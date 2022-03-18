@@ -1,9 +1,10 @@
 package com.desafiojava.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,18 +36,18 @@ public class Aluno implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int Id;
 	
+	@Column(nullable = false, length = 70)
 	public String Nome;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
-	public LocalDateTime DataDeNascimento;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")	
+	public LocalDate DataDeNascimento;
 	
 	@OneToMany(mappedBy = "aluno")	
 	private List<Turma> turmas;
 	
 	public Aluno() {}
 
-	public Aluno(int id, String nome, LocalDateTime dataDeNascimento) {		
+	public Aluno(int id, String nome, LocalDate dataDeNascimento) {		
 		this.Id = id;
 		Nome = nome;
 		DataDeNascimento = dataDeNascimento;

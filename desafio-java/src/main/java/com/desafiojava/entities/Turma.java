@@ -22,7 +22,11 @@ public class Turma implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int Id;
+	
+	@Column(nullable = false, length = 70)
 	public String Nome;
+	
+	@Column(nullable = false)
 	public int Capacidade;
 	
 	@OneToOne

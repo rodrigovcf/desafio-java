@@ -25,14 +25,15 @@ public class Escola implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int Id;
+	
+	@Column(nullable = false, length = 70)
 	public String Nome;
 	
 	@OneToOne
 	@JoinColumn(name = "fk_endereco")
 	public Endereco Endereco;
 
-	@OneToMany(mappedBy = "aluno")
-	@JoinColumn(name = "fk_turma")
+	@OneToMany(mappedBy = "aluno")	
 	private List<Turma> turmas;
 	
 	public Escola() {}
@@ -42,8 +43,6 @@ public class Escola implements Serializable{
 		Nome = nome;
 		Endereco = endereco;
 	}	
-
 	
-		
 
 }

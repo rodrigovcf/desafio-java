@@ -24,10 +24,20 @@ public class Endereco implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@Column(nullable = false, length = 70)
 	public String logradouro;
+	
+	@Column(nullable = false, length = 70)
 	public String complemento;
+	
+	@Column(nullable = false, length = 70)
 	public String bairro;
+	
+	@Column(nullable = false, length = 70)
 	public String cidade;
+	
+	@Column(nullable = false, length = 70)
 	public String estado;	
 
 	public Endereco(int id, String logradouro, String complemento, 
@@ -38,6 +48,8 @@ public class Endereco implements Serializable{
 		this.bairro = bairro;
 		this.cidade = cidade;
 		this.estado = estado;
-	}	
+	}
+	
+	
 
 }

@@ -13,43 +13,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafiojava.entities.Aluno;
-import com.desafiojava.repositories.AlunoRepo;
+import com.desafiojava.entities.Escola;
+import com.desafiojava.repositories.EscolaRepo;
 
 @RestController
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/escolas")
+public class EscolaController {
 	
 	@Autowired
-	private AlunoRepo alunoRepository ;
+	private EscolaRepo escolaRepository ;
 	
 	@PostMapping
-	public Aluno create(@RequestBody Aluno aluno) {
-		return alunoRepository.save(aluno);
+	public Escola create(@RequestBody Escola escola) {
+		return escolaRepository.save(escola);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> getById(@PathVariable int id) {
-		return alunoRepository.findById(id)
+		return escolaRepository.findById(id)
 				.map(record -> ResponseEntity.ok().body(record))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/todos")
-	public List<Aluno> getAll(){
-		return alunoRepository.findAll();
+	public List<Escola> getAll(){
+		return escolaRepository.findAll();
 	}
 		
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> update(@PathVariable("id") int id, 
-									@RequestBody Aluno aluno) {
-		return alunoRepository.findById(id)
-				.map(record -> {
-					record.setNome(aluno.getNome());
-					record.setDataDeNascimento(aluno.getDataDeNascimento());
-					record.setTurmas(aluno.getTurmas());
+									@RequestBody Escola escola) {
+		return escolaRepository.findById(id)
+				.map(record -> {					
+					record.setNome(escola.getNome());
+					record.setEndereco(escola.getEndereco());
 					
-					Aluno update = alunoRepository.save(record);
+					Escola update = escolaRepository.save(record);
 					return ResponseEntity.ok().body(update);
 					
 				}).orElse(ResponseEntity.notFound().build());
@@ -57,7 +56,7 @@ public class AlunoController {
 	
 	@DeleteMapping("/remover/{id}")
 	public void remove(@PathVariable int id) {
-		alunoRepository.deleteById(id);
+		escolaRepository.deleteById(id);
 	}
 	
 	

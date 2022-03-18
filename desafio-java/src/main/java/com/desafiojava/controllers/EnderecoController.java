@@ -13,43 +13,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafiojava.entities.Aluno;
-import com.desafiojava.repositories.AlunoRepo;
+import com.desafiojava.entities.Endereco;
+import com.desafiojava.repositories.EnderecoRep;
 
 @RestController
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/enderecos")
+public class EnderecoController {
 	
 	@Autowired
-	private AlunoRepo alunoRepository ;
+	private EnderecoRep enderRepository ;
 	
 	@PostMapping
-	public Aluno create(@RequestBody Aluno aluno) {
-		return alunoRepository.save(aluno);
+	public Endereco create(@RequestBody Endereco endereco) {
+		return enderRepository.save(endereco);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> getById(@PathVariable int id) {
-		return alunoRepository.findById(id)
+		return enderRepository.findById(id)
 				.map(record -> ResponseEntity.ok().body(record))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/todos")
-	public List<Aluno> getAll(){
-		return alunoRepository.findAll();
+	public List<Endereco> getAll(){
+		return enderRepository.findAll();
 	}
 		
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> update(@PathVariable("id") int id, 
-									@RequestBody Aluno aluno) {
-		return alunoRepository.findById(id)
-				.map(record -> {
-					record.setNome(aluno.getNome());
-					record.setDataDeNascimento(aluno.getDataDeNascimento());
-					record.setTurmas(aluno.getTurmas());
+									@RequestBody Endereco endereco) {
+		return enderRepository.findById(id)
+				.map(record -> {					
+					record.setBairro(endereco.getBairro());
+					record.setCidade(endereco.getCidade());
+					record.setComplemento(endereco.getComplemento());
+					record.setEstado(endereco.getEstado());
+					record.setLogradouro(endereco.getLogradouro());
 					
-					Aluno update = alunoRepository.save(record);
+					Endereco update = enderRepository.save(record);
 					return ResponseEntity.ok().body(update);
 					
 				}).orElse(ResponseEntity.notFound().build());
@@ -57,7 +59,7 @@ public class AlunoController {
 	
 	@DeleteMapping("/remover/{id}")
 	public void remove(@PathVariable int id) {
-		alunoRepository.deleteById(id);
+		enderRepository.deleteById(id);
 	}
 	
 	

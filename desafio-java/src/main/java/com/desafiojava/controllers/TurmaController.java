@@ -13,43 +13,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafiojava.entities.Aluno;
-import com.desafiojava.repositories.AlunoRepo;
+import com.desafiojava.entities.Turma;
+import com.desafiojava.repositories.TurmaRepo;
 
 @RestController
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/turmas")
+public class TurmaController {
 	
 	@Autowired
-	private AlunoRepo alunoRepository ;
+	private TurmaRepo turmaRepository ;
 	
 	@PostMapping
-	public Aluno create(@RequestBody Aluno aluno) {
-		return alunoRepository.save(aluno);
+	public Turma create(@RequestBody Turma endereco) {
+		return turmaRepository.save(endereco);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> getById(@PathVariable int id) {
-		return alunoRepository.findById(id)
+		return turmaRepository.findById(id)
 				.map(record -> ResponseEntity.ok().body(record))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/todos")
-	public List<Aluno> getAll(){
-		return alunoRepository.findAll();
+	public List<Turma> getAll(){
+		return turmaRepository.findAll();
 	}
 		
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> update(@PathVariable("id") int id, 
-									@RequestBody Aluno aluno) {
-		return alunoRepository.findById(id)
-				.map(record -> {
-					record.setNome(aluno.getNome());
-					record.setDataDeNascimento(aluno.getDataDeNascimento());
-					record.setTurmas(aluno.getTurmas());
+									@RequestBody Turma turma) {
+		return turmaRepository.findById(id)
+				.map(record -> {					
+					record.setNome(turma.getNome());
+					record.setCapacidade(turma.getCapacidade());
 					
-					Aluno update = alunoRepository.save(record);
+					Turma update = turmaRepository.save(record);
 					return ResponseEntity.ok().body(update);
 					
 				}).orElse(ResponseEntity.notFound().build());
@@ -57,7 +56,7 @@ public class AlunoController {
 	
 	@DeleteMapping("/remover/{id}")
 	public void remove(@PathVariable int id) {
-		alunoRepository.deleteById(id);
+		turmaRepository.deleteById(id);
 	}
 	
 	
